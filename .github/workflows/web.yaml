@@ -1,5 +1,6 @@
 name: Build web
-on: [push]
+on:
+  workflow_dispatch:
 
 
 jobs:
