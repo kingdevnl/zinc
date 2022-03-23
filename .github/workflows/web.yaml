@@ -1,18 +1,19 @@
 name: Build web
-on:
-  workflow_dispatch:
+on: [push]
 
 
 jobs:
   build_web:
-    runs-on: ubuntu-20.04
+    runs-on: ${{ matrix.os }}
 
-
+    strategy:
+        matrix:
+            os: [ubuntu-20.04, macos-11, windows-2022]
+            node-version: [16]
     
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: "16"
-      - run: cd web && npm install && npm run build && echo "Test works"
-      
+          node-version: ${{ matrix.node-version }}
+      - run: cd web && npm install && npm run build
